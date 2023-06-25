@@ -1,0 +1,21 @@
+dimension 3
+units si
+boundary p f f
+atom_style full
+timestep        1
+neighbor       1 bin
+neigh_modify    delay 0 every 1 check yes
+comm_modify cutoff 17
+read_data "PY.data" extra/bond/per/atom 60
+pair_style lj/cut 10
+pair_coeff * *  1 1 
+bond_style harmonic 
+bond_coeff 1  2.00E-3 10
+bond_coeff 2  1.25E-4 10
+bond_coeff 3  2.00E-5 10
+group first type 1
+group second type 2 
+create_bonds many first first 1 10 10.1                  
+create_bonds many first second 2 10 10.4  
+create_bonds many second second 3 10 11.0  
+write_data "6.25.data" 
